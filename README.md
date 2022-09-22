@@ -19,6 +19,8 @@ DocC Github Pages Deploy: Deploy Generated DocC Static Site To Github-Pages.
 
 See [action.yml](https://github.com/kiarashvosough1999/docC-github-pages-deploy/blob/master/action.yml).
 
+> Make sure to set the version to latest tag.
+
 As An Example:
 
 ```yml
@@ -41,7 +43,7 @@ jobs:
 
     steps:
     - name: deploy static site
-      uses: kiarashvosough1999/docC-github-pages-deploy@added-action-steps
+      uses: kiarashvosough1999/docC-github-pages-deploy@v1.0.0
 ```
 
 > Make Sure give access to `pages`, `contents` and `d-token`, or the action will fail to push the site into Github-Pages.
