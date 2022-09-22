@@ -43,7 +43,6 @@ runs:
       with:
         path: ./${{ inputs.docC-generated-static-site-uploaded-name }}/__site
         retention-days: 1
-        if-no-files-found: error
 
     - name: Deploy To Pages
       id: deploy-step
