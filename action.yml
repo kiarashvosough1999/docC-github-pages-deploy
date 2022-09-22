@@ -41,15 +41,11 @@ runs:
     - name: Upload Static Site Artifacts
       uses: actions/upload-pages-artifact@v0
       with:
-        name: github-pages
         path: ./${{ inputs.docC-generated-static-site-uploaded-name }}/__site
         retention-days: 1
 
     - name: Deploy To Pages
       id: deploy-step
-      env:
-        name: github-pages
-        url: ${{ steps.deployment.outputs.page_url }}
       uses: actions/deploy-pages@v1
       with:
         emit_telemetry: false
