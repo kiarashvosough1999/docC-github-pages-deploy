@@ -53,7 +53,7 @@ jobs:
 
 ## Integration With Build DocC Static Site
 
-You can use [https://github.com/kiarashvosough1999/build-docC-static-site/tree/master) to generate static site from DocC Archive.
+You can use [build-docC-static-site](https://github.com/kiarashvosough1999/build-docC-static-site/tree/master) to generate static site from DocC Archive.
 
 > The default `docC-generated-static-site-uploaded-name` associated with [build-docC-static-site
 ](https://github.com/kiarashvosough1999/build-docC-static-site/tree/master) and `docC-generated-static-site-zipped-upload-name` associated with this action, input must be the same.
