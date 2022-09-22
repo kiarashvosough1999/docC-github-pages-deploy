@@ -1,0 +1,59 @@
+name: 'Deploy DocC To Github-Pages'
+description: 'Deploy DocC generated Static Site To Github-Pages'
+
+inputs:
+  docC-generated-static-site-uploaded-name:
+    description: 'The name of the ziped artifact which was uploaded on previous steps.(artifact must be zipped with .tar extension only)'
+    required: true
+    default: 'docC_generated_site_zipped'
+
+outputs:
+  docC-page_url:
+    description: "DocC Deployed Site URL on Github-Pages"
+    value: ${{ steps.deploy-step.outputs.page_url }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: checkout
+      uses: actions/checkout@v3
+      with:
+       repository: ${{ github.event.pull_request.head.repo.full_name }}
+       ref: ${{ github.event.pull_request.head.ref }}
+
+    - name: Download a DocC Generated Static Site Zipped artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: ${{ inputs.docC-generated-static-site-uploaded-name }}
+
+    - name: Unarchive Artifact
+      shell: bash
+      run: |
+        mkdir ${{ inputs.docC-generated-static-site-uploaded-name }}
+        tar -xf ${{ inputs.docC-generated-static-site-uploaded-name }}.tar -C ./${{ inputs.docC-generated-static-site-uploaded-name }}
+
+    - name: Build Static Site With Jekyll
+      uses: actions/jekyll-build-pages@v1
+      with:
+        source: ./${{ inputs.docC-generated-static-site-uploaded-name }}
+        destination: ./${{ inputs.docC-generated-static-site-uploaded-name }}/__site
+
+    - name: Upload Static Site Artifacts
+      uses: actions/upload-pages-artifact@v0
+      with:
+        name: github-pages
+        path: ./${{ inputs.docC-generated-static-site-uploaded-name }}/__site
+        retention-days: 1
+
+    - name: Deploy To Pages
+      id: deploy-step
+      env:
+        name: github-pages
+        url: ${{ steps.deployment.outputs.page_url }}
+      uses: actions/deploy-pages@v1
+      with:
+        emit_telemetry: false
+        timeout: 600000
+        error_count: 10
+        reporting_interval: 5000
+        artifact_name: github-pages
