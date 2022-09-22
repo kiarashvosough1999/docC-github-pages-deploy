@@ -47,9 +47,6 @@ runs:
 
     - name: Deploy To Pages
       id: deploy-step
-      env:
-        name: github-pages
-        url: ${{ steps.deployment.outputs.page_url }}
       uses: actions/deploy-pages@v1
       with:
         emit_telemetry: false
