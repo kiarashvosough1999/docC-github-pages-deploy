@@ -46,7 +46,7 @@ jobs:
       uses: kiarashvosough1999/docC-github-pages-deploy@v1.0.0
 ```
 
-> Make Sure give access to `pages`, `contents` and `d-token`, or the action will fail to push the site into Github-Pages.
+> Make Sure give access to `pages`, `contents` and `id-token`, or the action will fail to push the site into Github-Pages.
 
 > Make sure to specify the `name` and `url` on the environment like the example, or the job will fail.
 
